@@ -1,0 +1,37 @@
+<h1 class="page-header">{{films.title}}</h1>
+<h2 ng-if="message">{{message}}</h2>
+<div class="media list-group-item" ng-repeat="item in films.subjects">
+	<span class="badge">{{item.rating.average}}</span>
+	<div class="media-left">
+		<a href="#/detail/{{item.id}}">
+			<img class="media-object" ng-src="{{item.images.small}}" alt="...">
+		</a>
+	</div>
+	<div class="media-body">
+		<h4 class="media-heading">{{item.title}}</h4>
+		<p>
+			类型：<span>{{item.genres.join('、')}}</span>&nbsp;&nbsp;&nbsp;&nbsp; 上映年份：
+			<span>{{item.year}}</span></p>
+		<p>
+		<p>捣眼：<span ng-repeat="d in item.directors">{{d.name+($last?'':'、')}}</span></p>
+		<p>主眼：<span ng-repeat="c in item.casts">{{c.name}}、</span></p>
+	</div>
+</div>
+<div ng-show="!loading">
+	<p>总共{{films.total}}条记录，当前{{currentPage}}/{{totalPage}}页</p>
+	<nav>
+		<ul class="pager">
+			<li ng-class="{disabled:currentPage<=1}"><a ng-click="select(currentPage - 1)">« 上一页</a></li>
+			<li ng-class="{disabled:currentPage>=totalPage}"><a ng-click="select(currentPage + 1)">下一页 »</a></li>
+		</ul>
+	</nav>
+</div>
+
+
+<!--未加载完显示-->
+<div class="mask" ng-show="loading">
+	<div class="spinner">
+		<div class="dot1"></div>
+		<div class="dot2"></div>
+	</div>
+</div>
